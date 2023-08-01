@@ -1,0 +1,15 @@
+server:
+  error:
+    include-binding-errors: always
+    include-message: always
+    include-stacktrace: never
+
+spring:
+  data:
+    mongodb:
+      uri: "mongodb+srv://frotan1954techproed:frotan1427@mymongodb.an6kw7i.mongodb.net/school_db"
+#      host: localhost
+#      port: 27017
+#      database: school_db
+#      #username: mongodb_user
+#      #password: mongodb_password
