@@ -7,12 +7,10 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -33,5 +31,29 @@ public class StudentController {
         return  new ResponseEntity<>(response, HttpStatus.CREATED);// 201(CREATED)
 
     }
+
+    @GetMapping////http://localhost:8080/students
+    public ResponseEntity<List<Student>> getAllStudents(){
+       List<Student> students= studentService.findAllStudents();
+       return new ResponseEntity<>(students,HttpStatus.OK);
+    }
+
+
+    @GetMapping("/{id}")//http://localhost:8080/students/64caa0015212500004ddd460
+    public ResponseEntity<Student> getStudentById(@PathVariable("id") String id){
+       Student student = studentService.getStudentById(id);
+       return  new ResponseEntity<>(student,HttpStatus.OK);
+    }
+
+    @GetMapping("/query")//http://localhost:8080/students/query?id=64caa0015212500004ddd460
+    public ResponseEntity<Student> getStudentByIdWithParam(@RequestParam("id") String id){
+        Student student = studentService.getStudentById(id);
+        return  new ResponseEntity<>(student,HttpStatus.OK);
+    }
+
+
+
+
+
 
 }
