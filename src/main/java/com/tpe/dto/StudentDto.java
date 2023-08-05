@@ -1,5 +1,6 @@
-package com.tpe.domain;
+package com.tpe.dto;
 
+import com.tpe.domain.Student;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,42 +11,41 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "students")
-public class Student {
+public class StudentDto {
 
-    @Id//it is used to specify the primary identifier//
+
     private String id;
-
 
     @NotNull(message = "First name cannot be null.")
     @NotBlank(message = "First name cannot be whitSpace ")
     @Size(min = 4,max = 25,message = "First name '${validatedValue}' must be between {min} and {max} ")
     private String name;
 
-    @Field(name = "last_name")
+
     private String lastName;
 
     @Email(message = "Please provide a valid email ...")
     private String email;
 
     private String phoneNumber;
-    @CreatedDate
-    private Date registerDate= new Date();
 
-//    @Transient
-//    private String address;
+    private LocalDateTime registerDate= LocalDateTime.now();
 
+    public StudentDto(Student student) {
+        this.id=student.getId();
+        this.name=student.getName();
+        this.lastName=student.getLastName();
+        this.email=student.getEmail();
+        this.phoneNumber=student.getPhoneNumber();
+        this.registerDate=getRegisterDate();
 
+    }
 }

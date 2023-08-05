@@ -2,6 +2,7 @@ package com.tpe.controller;
 
 
 import com.tpe.domain.Student;
+import com.tpe.dto.StudentDto;
 import com.tpe.service.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,52 @@ public class StudentController {
         Student student = studentService.getStudentById(id);
         return  new ResponseEntity<>(student,HttpStatus.OK);
     }
+
+    @GetMapping("/name")//http://localhost:8080/students/name?name=tuba
+
+    public ResponseEntity<List<Student>> getStudentByName(@RequestParam String name){
+
+       List<Student> students = studentService.getStudentByName(name);
+
+       return  new ResponseEntity<>(students,HttpStatus.OK);
+
+    }
+
+    @PutMapping("/{studentId}")//http://localhost:8080/students/64caa0015212500004ddd460
+    public ResponseEntity<Map<String,String>> updateStudent(@PathVariable String studentId,
+                                                            @Valid  @RequestBody StudentDto studentDto)
+    {
+        studentService.updateStudentById(studentId,studentDto);
+        Map<String,String> response= new HashMap<>();
+        response.put("message","Student has been updated successfully..");
+        response.put("status","true");
+
+        return  new ResponseEntity<>(response, HttpStatus.OK);// 200(OK)
+
+    }
+
+    @DeleteMapping("/{id}")//http://localhost:8080/students/64caa0015212500004ddd460
+    public  ResponseEntity<String>   deleteStudentById(@PathVariable  String id){
+        studentService.deleteStudentById(id);
+        String message="Student with id has been deleted ";
+        return new ResponseEntity<>(message,HttpStatus.OK);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
