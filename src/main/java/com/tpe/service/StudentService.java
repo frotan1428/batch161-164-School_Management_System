@@ -90,4 +90,17 @@ public class StudentService {
          Student student= getStudentById(id);
          studentRepository.delete(student);//3
     }
+
+    public List<Student> findStudentByNameUsingQuery(String lastName) {
+        return studentRepository.findStudentByLastNameWithQuery(lastName);
+    }
+
+    public List<Student> findStudentWithNullPhoneANdAddress() {
+        return studentRepository.findStudentWithNullAddressandPhoneNumber();
+
+    }
+
+    public List<Student> findStudensNameWStartWithVowel() {
+        return studentRepository.findStudentsWhoseNameStartWithVowelLetter();
+    }
 }

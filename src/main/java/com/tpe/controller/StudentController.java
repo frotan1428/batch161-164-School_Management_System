@@ -83,18 +83,41 @@ public class StudentController {
     }
 
 
+    ///find students by their lastName
 
+    @GetMapping("/byLastName/{lastName}")///http://localhost:8080/students/byLastName/Muslih
 
+    public ResponseEntity<List<Student>> getLastNameByQuery(@PathVariable String lastName){
+      List<Student> students=  studentService.findStudentByNameUsingQuery(lastName);
+      return new ResponseEntity<>(students,HttpStatus.OK);
+    }
 
+    //find the students who's  address and phoneNumber is null
 
+    @GetMapping("/phone/null")//http://localhost:8080/students/phone/null
 
+    public ResponseEntity<List<Student>> getStudentWithNullPhoneNumberAndAddress(){
 
+        List<Student> students =studentService.findStudentWithNullPhoneANdAddress();
+        if (students.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);//404
+        }
 
+        return new ResponseEntity<>(students,HttpStatus.OK);
+    }
 
+    //find the students whose names are start with Vowel(aeiou)
 
+    @GetMapping("/names/start-with-vowel")//http://localhost:8080/students/names/start-with-vowel
+    public ResponseEntity<List<Student>> getStudentNameStartWithVowel(){
 
+        List<Student> students =studentService.findStudensNameWStartWithVowel();
+        if (students.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);//404
+        }
 
-
+        return new ResponseEntity<>(students,HttpStatus.OK);
+    }
 
 
 

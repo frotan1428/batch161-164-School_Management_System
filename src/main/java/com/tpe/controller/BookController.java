@@ -42,7 +42,7 @@ public class BookController {
     }
 
 
-    @PostMapping("/{teacherId}/books")//http://localhost:8080/books/{teacherId}/books?BookId={bookId}
+    @PutMapping("/{teacherId}/books")//http://localhost:8080/books/{teacherId}/books?BookId={bookId}
 
     public ResponseEntity<Map<String,String>> addBookForTeacher(
             @PathVariable String teacherId,
