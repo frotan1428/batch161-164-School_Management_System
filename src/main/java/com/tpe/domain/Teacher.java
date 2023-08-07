@@ -4,46 +4,41 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
+import lombok.*;
 import org.springframework.data.annotation.Id;
+
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Setter
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
-@Document(collection = "teachers")
+@AllArgsConstructor
+@Document(collection = "teachers") // Specify the MongoBD collection name
 public class Teacher {
-    @Id//it is used to specify the primary identifier//
-    private String id;
 
+    @Id
+    private String id; // Use String as the ID type for MongoDBDB
 
     @NotNull(message = "First name cannot be null.")
-    @NotBlank(message = "First name cannot be whitSpace ")
-    @Size(min = 4,max = 25,message = "First name '${validatedValue}' must be between {min} and {max} ")
+    @NotBlank(message = "First name cannot be white space")
+    @Size(min = 2, max = 25, message = "First name '${validatedValue}' must be between {min} and {max} characters")
     private String name;
 
-    @Field(name = "last_name")
     private String lastName;
 
-    @Email(message = "Please provide a valid email ...")
+    @Email(message = "Provide a valid e-mail.")
     private String email;
 
     private String phoneNumber;
-    @CreatedDate
-    private Date registerDate= new Date();
 
-    private List<Book> books= new ArrayList<>();
+    private Date registerDate = new Date();
 
+    private List<Book> books = new ArrayList<>();
 
 
 }

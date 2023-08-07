@@ -1,32 +1,45 @@
 package com.tpe.repository;
 
 import com.tpe.domain.Student;
+import com.tpe.dto.StudentDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface StudentRepository  extends MongoRepository<Student,String> {
+public interface StudentRepository extends MongoRepository<Student, String> {
 
-    Student findByEmail(String email);
+    List<Student> findByLastName(String lastName);
 
     List<Student> findByName(String name);
 
-        @Query("{'lastName':?0}")//ali-ahmad
-        List<Student> findStudentByLastNameWithQuery(String lastName);
-        //find the student who's phoneNumber is null or empty '' null
+    Student findByEmail(String email);
+
+    @Query("{'_id': ?0}") // MongoDB query to find a student by ID
+    Optional<StudentDto> findStudentByDto(String id);
 
 
-       // @Query("{$and:[{'phoneNumber': null},{'address': null}]}")
 
-        // @Query("{'phoneNumber':{$nin:[null, '']}}")//consonant letter
-        @Query("{'phoneNumber':{$nin:[null, '']}}")//db.student.find("{'phoneNumber':{$nin:[null, '']}}")
-        List<Student> findStudentWithNullAddressandPhoneNumber();
 
-        @Query("{'name': {$regex: '^[aeiou]',$options: 'i'}}")//Ali-aLi-ALI-ALi vowel
-        List<Student> findStudentsWhoseNameStartWithVowelLetter();
+    //@Query("{'phoneNumber': {$in: [null, '']}}")
+
+    @Query("{$and: [{'phoneNumber': null}, {'address': null}]}")
+    List<Student> findStudentsWithNullPhoneNumber();
+
+
+
+   //@Query("{'name': {$regex: '^[^aeiou]', $options: 'i'}}")
+   @Query("{'name': {$regex: '^[aeiou]', $options: 'i'}}")
+    List<Student> findStudentsWhoseNamesStartWithVowel();
+
+    @Query("{'lastName': ?0}")
+    List<Student> findStudentsByLastName(String lastName);
 
 
 

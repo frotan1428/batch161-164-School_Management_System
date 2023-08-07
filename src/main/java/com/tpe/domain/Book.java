@@ -1,37 +1,32 @@
 package com.tpe.domain;
-
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
-@Document(collection = "books")
+@AllArgsConstructor
+@Document(collection = "books") // Specify the MongoDB collection name
 public class Book {
 
     @Id
-    private String id;
+    private String id; // Use String as the ID type for MongoDB
 
-    @NotNull(message = "Title name cannot be null.")
-    @NotBlank(message = "Title name cannot be whitSpace ")
-    @Size(min = 4,max = 25,message = "First name '${validatedValue}' must be between {min} and {max} ")
-     private String title;
-     private String author;
-     private String publicationDate;
+    @NotNull(message = "First name cannot be null.")
+    @NotBlank(message = "First name cannot be white space")
+    private String title;
 
-     private List<Teacher> teachers= new ArrayList<>();
+    private String author;
+    private String publicationDate;
 
+    private List<Teacher> teachers = new ArrayList<>();
 
+    // Constructors, getters, setters, and other methods
 }
